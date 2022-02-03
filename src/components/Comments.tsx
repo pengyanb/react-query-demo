@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { List, Typography, Skeleton } from "antd";
 import { useCommentsQuery } from "../hooks";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const Comments: React.FC = () => {
   const { data: comments } = useCommentsQuery();
@@ -38,9 +39,13 @@ const CommentsLoader = () => {
 
 const CommentsWithSuspense = () => {
   return (
-    <Suspense fallback={<CommentsLoader />}>
-      <Comments />
-    </Suspense>
+    <ErrorBoundary
+      fallback={<Typography.Text>Unable to load Comments</Typography.Text>}
+    >
+      <Suspense fallback={<CommentsLoader />}>
+        <Comments />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

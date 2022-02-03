@@ -19,18 +19,16 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
-        <ErrorBoundary fallback={<div>Error occured</div>}>
-          <Layout style={{ minHeight: "100vh" }}>
-            <Layout>
-              <Layout.Content>
-                <Routes>
-                  <Route path="/" element={<Navigate replace to="page1" />} />
-                  <Route path="page1" element={<Page1 />} />
-                </Routes>
-              </Layout.Content>
-            </Layout>
+        <Layout style={{ minHeight: "100vh" }}>
+          <Layout>
+            <Layout.Content>
+              <Routes>
+                <Route path="/" element={<Navigate replace to="page1" />} />
+                <Route path="page1" element={<Page1 />} />
+              </Routes>
+            </Layout.Content>
           </Layout>
-        </ErrorBoundary>
+        </Layout>
       </QueryClientProvider>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { List, Typography, Skeleton } from "antd";
 import { useAlbumsQuery } from "../hooks";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const Albums: React.FC = () => {
   const { data: albums } = useAlbumsQuery();
@@ -38,9 +39,13 @@ const AlbumsLoader = () => {
 
 const AlbumsWithSuspense = () => {
   return (
-    <Suspense fallback={<AlbumsLoader />}>
-      <Albums />
-    </Suspense>
+    <ErrorBoundary
+      fallback={<Typography.Text>Unable to load Albums</Typography.Text>}
+    >
+      <Suspense fallback={<AlbumsLoader />}>
+        <Albums />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

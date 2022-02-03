@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { List, Typography, Skeleton } from "antd";
 import { useUsersQuery } from "../hooks";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const Users: React.FC = () => {
   const { data: users } = useUsersQuery();
@@ -38,9 +39,13 @@ const UsersLoader = () => {
 
 const UsersWithSuspense = () => {
   return (
-    <Suspense fallback={<UsersLoader />}>
-      <Users />
-    </Suspense>
+    <ErrorBoundary
+      fallback={<Typography.Text>Unable to load Users</Typography.Text>}
+    >
+      <Suspense fallback={<UsersLoader />}>
+        <Users />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 
